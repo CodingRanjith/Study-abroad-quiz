@@ -109,14 +109,14 @@
     .then(response => response.json())
     .then(data => {
         if (data.status === 'success') {
-            alert('Details successfully sent to Google Sheets!');
+            console.log('Data sent successfully');
         } else {
-            alert('Failed to send details. Please try again.');
+            
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('An error occurred. Please try again.');
+       
     });
 }
 
