@@ -27,11 +27,30 @@ function submitScore() {
         body: formData.toString()
     })
     .then(() => {
-        alert('Your score has been submitted successfully!');
+        // Success SweetAlert
+        Swal.fire({
+            icon: 'success',
+            title: 'Score Submitted!',
+            text: 'Your score has been submitted successfully!',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirect to the URL when the user clicks 'OK'
+                window.location.href = 'https://www.go.study/';
+            }
+        });
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('An error occurred while submitting your score. Please try again.');
+        // Error SweetAlert
+        Swal.fire({
+            icon: 'error',
+            title: 'Submission Failed',
+            text: 'An error occurred while submitting your score. Please try again.',
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'OK'
+        });
     });
 }
 

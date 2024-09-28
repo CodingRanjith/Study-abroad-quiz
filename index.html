@@ -8,6 +8,9 @@
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <title>QUIZ</title>
+     <!-- Include SweetAlert2 CSS and JavaScript -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" href="home.css">
 </head>
@@ -80,40 +83,18 @@
  function submitted(e) {
     e.preventDefault();
 
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("email").value;
-    let mobile = document.getElementById("mobile").value;
-    let points = sessionStorage.getItem("points") || "0";
+    // Get user details from sessionStorage
+    let name = sessionStorage.getItem("name") || 'Guest';
+    let email = sessionStorage.getItem("email") || 'Not Provided';
+    let mobile = sessionStorage.getItem("mobile") || 'Not Provided';
 
-    // Store data in sessionStorage
-    sessionStorage.setItem("name", name);
-    sessionStorage.setItem("email", email);
-    sessionStorage.setItem("mobile", mobile);
+    // Store the data back in sessionStorage (optional if not modifying)
+    sessionStorage.setItem('name', name);
+    sessionStorage.setItem('email', email);
+    sessionStorage.setItem('mobile', mobile);
 
-    // Prepare URL-encoded form data
-    const formData = new URLSearchParams();
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('mobile', mobile);
-    formData.append('points', points);
-
-    // Send data to Google Sheet using fetch
-    fetch('https://script.google.com/macros/s/AKfycbz7uQMiqFxucDfhGNFz6rj1FlcfmhhbrJGwkpX8wdhRHTe0bWr0XjLtJGHoGg_vqBIt/exec', {
-        method: 'POST',
-        mode: 'no-cors', // no-cors means we cannot access the response
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: formData.toString() // Send URL-encoded data
-    })
-    .then(() => {
-        console.log('Data sent successfully');
-        alert('Your details have been submitted successfully!');
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred while sending your details. Please try again.');
-    });
+    // Log the data to console (optional)
+    console.log('Data stored in sessionStorage:', { name, email, mobile});
 }
 
 
