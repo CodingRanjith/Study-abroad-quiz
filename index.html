@@ -76,8 +76,8 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
  
-    <script>
-        function submitted(e) {
+<script>
+ function submitted(e) {
     e.preventDefault();
 
     let name = document.getElementById("name").value;
@@ -90,36 +90,33 @@
     sessionStorage.setItem("email", email);
     sessionStorage.setItem("mobile", mobile);
 
-    // Prepare data to send to Google Sheet
-    const formData = {
-        name: name,
-        email: email,
-        mobile: mobile,
-        points: points
-    };
+    // Prepare URL-encoded form data
+    const formData = new URLSearchParams();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('mobile', mobile);
+    formData.append('points', points);
 
     // Send data to Google Sheet using fetch
-    fetch('https://script.google.com/a/macros/urbancode.in/s/AKfycbysuvlYpF2gVX4zbYpiSSOXsUI3Mi1J36phfOEpPCrtpZU-eQGD5DgOxMBi8jbv3Zt5-w/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbz7uQMiqFxucDfhGNFz6rj1FlcfmhhbrJGwkpX8wdhRHTe0bWr0XjLtJGHoGg_vqBIt/exec', {
         method: 'POST',
+        mode: 'no-cors', // no-cors means we cannot access the response
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: JSON.stringify(formData)
+        body: formData.toString() // Send URL-encoded data
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            console.log('Data sent successfully');
-        } else {
-            
-        }
+    .then(() => {
+        console.log('Data sent successfully');
+        alert('Your details have been submitted successfully!');
     })
     .catch(error => {
         console.error('Error:', error);
-       
+        alert('An error occurred while sending your details. Please try again.');
     });
 }
 
-    </script>
+
+</script>
 </body>
 </html>
