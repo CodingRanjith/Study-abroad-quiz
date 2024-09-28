@@ -8,9 +8,6 @@
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <title>QUIZ</title>
-     <!-- Include SweetAlert2 CSS and JavaScript -->
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" href="home.css">
 </head>
@@ -83,18 +80,22 @@
  function submitted(e) {
     e.preventDefault();
 
-    // Get user details from sessionStorage
-    let name = sessionStorage.getItem("name") || 'Guest';
-    let email = sessionStorage.getItem("email") || 'Not Provided';
-    let mobile = sessionStorage.getItem("mobile") || 'Not Provided';
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let mobile = document.getElementById("mobile").value;
+    let points = sessionStorage.getItem("points") || "0";
 
-    // Store the data back in sessionStorage (optional if not modifying)
-    sessionStorage.setItem('name', name);
-    sessionStorage.setItem('email', email);
-    sessionStorage.setItem('mobile', mobile);
+    // Store data in sessionStorage
+    sessionStorage.setItem("name", name);
+    sessionStorage.setItem("email", email);
+    sessionStorage.setItem("mobile", mobile);
 
-    // Log the data to console (optional)
-    console.log('Data stored in sessionStorage:', { name, email, mobile});
+    // Prepare URL-encoded form data
+    const formData = new URLSearchParams();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('mobile', mobile);
+    formData.append('points', points);
 }
 
 
