@@ -164,116 +164,6 @@ let questions = [
           "UK",
           "Canada"
       ]
-  },
-  {
-      id: 16,
-      question: "Which Asian country is emerging as a popular destination for engineering students due to its cutting-edge technology programs?",
-      answer: "Japan",
-      options: [
-          "Singapore",
-          "South Korea",
-          "Japan",
-          "Malaysia"
-      ]
-  },
-  {
-      id: 17,
-      question: "What is the typical duration of a Master’s degree program in the UK?",
-      answer: "1 year",
-      options: [
-          "6 months",
-          "1 year",
-          "2 years",
-          "3 years"
-      ]
-  },
-  {
-      id: 18,
-      question: "Which test is required for students applying for MBA programs in the USA?",
-      answer: "GMAT",
-      options: [
-          "GRE",
-          "TOEFL",
-          "GMAT",
-          "SAT"
-      ]
-  },
-  {
-      id: 19,
-      question: "Which country typically requires students to submit a “Confirmation of Enrollment” (COE) for a student visa?",
-      answer: "Australia",
-      options: [
-          "Australia",
-          "USA",
-          "UK",
-          "France"
-      ]
-  },
-  {
-      id: 20,
-      question: "Which country's universities are known for providing engineering students with access to state-of-the-art research facilities in AI and Robotics?",
-      answer: "USA",
-      options: [
-          "Germany",
-          "USA",
-          "China",
-          "Sweden"
-      ]
-  },
-  {
-      id: 21,
-      question: "Which exam is commonly required for Indian students to apply for engineering undergraduate programs in the USA?",
-      answer: "SAT",
-      options: [
-          "SAT",
-          "GRE",
-          "PTE",
-          "ACT"
-      ]
-  },
-  {
-      id: 22,
-      question: "Which country offers a pathway to permanent residency for engineering graduates after completing their studies?",
-      answer: "Canada",
-      options: [
-          "UK",
-          "USA",
-          "Canada",
-          "Singapore"
-      ]
-  },
-  {
-      id: 23,
-      question: "Which country is known for offering free or low-cost education to international students?",
-      answer: "Germany",
-      options: [
-          "Germany",
-          "USA",
-          "UK",
-          "Australia"
-      ]
-  },
-  {
-      id: 24,
-      question: "What is the typical validity period of an IELTS score?",
-      answer: "2 years",
-      options: [
-          "1 year",
-          "2 years",
-          "3 years",
-          "5 years"
-      ]
-  },
-  {
-      id: 25,
-      question: "Which country has a STEM OPT program allowing international students to extend their stay for work?",
-      answer: "USA",
-      options: [
-          "USA",
-          "Canada",
-          "UK",
-          "Australia"
-      ]
   }
 ];
 
@@ -325,7 +215,7 @@ function next(){
 let user_answer = document.querySelector("li.option.active").innerHTML;
 
 if(user_answer == questions[question_count].answer){
-    points += 10;
+    points += 1;
     sessionStorage.setItem("points",points);
 }
 console.log(points);

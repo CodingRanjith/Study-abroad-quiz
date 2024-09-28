@@ -3,17 +3,16 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!--Import Google Icon Font-->
+    <!-- Import Google Icon Font -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <title>QUIZ</title>
 
     <link rel="stylesheet" href="home.css">
-
 </head>
 <body>
-    <!--Materialize CSS for Home Page Design-->
+    <!-- Materialize CSS for Home Page Design -->
     <nav class="nav-wrapper black">
         <div class="container">
             <a href="#home.html" class="brand-logo center">QUIZ</a>
@@ -24,50 +23,103 @@
         <div class="row">
             <div class="col s12 l6 offset-l3">
                 <form class="myform" name="id" onsubmit="submitted(event)">
-                <h4 class="center-align white-text">CONTESTENT NAME</h4>
-            
-                <div class="progress yellow">
-                    <div class="indeterminate"></div>
-                </div>
-
-                <div class="input-field">
-                    <i class="material-icons white-text prefix">account_box</i>
-                    <input type="text" class="white-text" id="name">
-                    <label for="name">Name Here</label>
-                    <p class="center"><button type="submit" class="btn blue" 
-                        onclick="this.style.display='none'">Submit Name</button></p>
-                </div>
-
-                <div>
-                    <p class="white-text green">QUIZ RULES :</p>
-                    <p class="black-text white ">1. YOU CANNOT SKIP ANY QUESTIONS.</p>
-                    <p class="black-text white ">2. YOU CANNOT GO TO PREVIOUS QUESTION.</p>
-                    <p class="black-text white ">3. TRY ATTEMPTING ALL WITHOUT CHEATING.</p>
-                </div>
-
-                <div class="progress yellow">
-                    <div class="indeterminate"></div>
-                </div>
-
-                <p class="center"><a href="quiz.html" class="btn blue">Let's Start</a></p>
+                    <h4 class="center-align white-text">CONTESTANT DETAILS</h4>
                 
-            </form>
+                    <div class="progress yellow">
+                        <div class="indeterminate"></div>
+                    </div>
+
+                    <!-- Name Input Field -->
+                    <div class="input-field">
+                        <i class="material-icons white-text prefix">account_box</i>
+                        <input type="text" class="white-text" id="name" required>
+                        <label for="name">Name Here</label>
+                    </div>
+
+                    <!-- Email Input Field -->
+                    <div class="input-field">
+                        <i class="material-icons white-text prefix">email</i>
+                        <input type="email" class="white-text" id="email" required>
+                        <label for="email">Email Here</label>
+                    </div>
+
+                    <!-- Mobile Number Input Field -->
+                    <div class="input-field">
+                        <i class="material-icons white-text prefix">phone</i>
+                        <input type="tel" class="white-text" id="mobile" pattern="[0-9]{10}" required>
+                        <label for="mobile">Mobile Number (10 digits)</label>
+                    </div>
+
+                    <p class="center">
+                        <button type="submit" class="btn blue" onclick="this.style.display='none'">Submit</button>
+                    </p>
+
+                    <div>
+                        <p class="white-text green">QUIZ RULES :</p>
+                        <p class="black-text white">1. YOU CANNOT SKIP ANY QUESTIONS.</p>
+                        <p class="black-text white">2. YOU CANNOT GO TO PREVIOUS QUESTION.</p>
+                        <p class="black-text white">3. TRY ATTEMPTING ALL WITHOUT CHEATING.</p>
+                    </div>
+
+                    <div class="progress yellow">
+                        <div class="indeterminate"></div>
+                    </div>
+
+                    <p class="center">
+                        <a href="quiz.html" class="btn blue">Let's Start</a>
+                    </p>
+                </form>
             </div>
         </div>
     </section>
-   
 
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
  
-<script>
-    function submitted(e){
-        e.preventDefault();
+    <script>
+        function submitted(e) {
+    e.preventDefault();
 
-        let namee = document.forms["id"]["name"].value;
-        sessionStorage.setItem("name", namee);
-    }
-</script>
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let mobile = document.getElementById("mobile").value;
+    let points = sessionStorage.getItem("points") || "0";
 
+    // Store data in sessionStorage
+    sessionStorage.setItem("name", name);
+    sessionStorage.setItem("email", email);
+    sessionStorage.setItem("mobile", mobile);
+
+    // Prepare data to send to Google Sheet
+    const formData = {
+        name: name,
+        email: email,
+        mobile: mobile,
+        points: points
+    };
+
+    // Send data to Google Sheet using fetch
+    fetch('https://script.google.com/a/macros/urbancode.in/s/AKfycbysuvlYpF2gVX4zbYpiSSOXsUI3Mi1J36phfOEpPCrtpZU-eQGD5DgOxMBi8jbv3Zt5-w/exec', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert('Details successfully sent to Google Sheets!');
+        } else {
+            alert('Failed to send details. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+    });
+}
+
+    </script>
 </body>
 </html>
