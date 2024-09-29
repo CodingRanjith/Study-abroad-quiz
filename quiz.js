@@ -19,7 +19,7 @@ let questions = [
           "5.5",
           "6.0",
           "6.5",
-          "7.0"
+          "IELTS not required"
       ]   
   },
   {
