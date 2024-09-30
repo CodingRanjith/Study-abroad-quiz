@@ -145,13 +145,13 @@ let questions = [
   },
   {
       id: 14,
-      question: "Which exam is required for international students to demonstrate English proficiency for Australian universities?",
-      answer: "IELTS",
+      question: "Which country has the longest psw after a masters?",
+      answer: "Australia",
       options: [
-          "TOEFL",
-          "IELTS",
-          "PTE",
-          "GRE"
+          "Australia",
+          "Canada",
+          "USA",
+          "New Zealand"
       ]
   },
   {
